@@ -70,29 +70,36 @@ class TA_Vision():
         self.ta_current_y = 0.0
         self.ta_current_z = 0.0
 
+        #   mqtt消息
         self.ta_vision_req_msg = OrderedDict()
         self.ta_vision_req_msg["name"] = "TD"
         self.ta_vision_req_msg["dir"] = "ZK"
         self.ta_vision_req_msg["action"] = "SL"
         self.ta_vision_req_msg["target_pose"] = [0.0, 0.0, 0.0]
         self.ta_vision_req_json = json.dumps(self.ta_vision_req_msg)
+
         self.ar_pose_array = np.zeros((9, 7))
         self.push_state = 0
+
+        # mqtt连接
         self.TA_Vision_Mqtt = Vision_Mqtt()
         self.TA_Vision_Mqtt.mqtt_host = self.host_ip
         self.TA_Vision_Mqtt.mqtt_port = self.host_port
         self.TA_Vision_Mqtt.start_mqtt()
-        rospy.Subscriber('ar_pose_marker', AlvarMarkers, self.get_ar_pose)
 
-        rospy.Subscriber("get_push_pose", Int32, self.get_push_state)
-        self.ta_target_pose = rospy.Publisher('/target_pose', Float32MultiArray, queue_size=5)
-        self.push_target_pose = rospy.Publisher('/push_target_pose', Float32MultiArray, queue_size=5)
-        self.ta_control_pos = rospy.Subscriber("/Pall_CURR_POS", Float32MultiArray, self.get_ta_pose)
+        rospy.Subscriber('ar_pose_marker', AlvarMarkers, self.get_ar_pose)  #   订阅ar码识别话题
+        rospy.Subscriber("get_push_pose", Int32, self.get_push_state)   #   订阅放置位姿话题
+
+        self.ta_target_pose = rospy.Publisher('/target_pose', Float32MultiArray, queue_size=5)  #   发布目标位姿话题
+        self.push_target_pose = rospy.Publisher('/push_target_pose', Float32MultiArray, queue_size=5)   #   发布放置目标位姿话题
+
+        self.ta_control_pos = rospy.Subscriber("/Pall_CURR_POS", Float32MultiArray, self.get_ta_pose)   #   订阅当前塔吊位姿
 
     def get_push_state(self, data):
         if data.data == 1:
             self.push_state = 1
 
+    #   
     def get_ta_pose(self, data):
         self.ta_current_x = data.data[0]
         self.ta_current_y = data.data[1]
