@@ -2,11 +2,11 @@
 
 <launch>
   <node name="td_palletizing" pkg="td_palletizing" type="Palletizing_TD_NODE" output="screen" >
-    <param name="usart_port" value="/dev/ttyUSB0" />
-    <param name="mqtt_host" value="192.168.17.69" />
-    <param name="mqtt_port" value="50002" />
-    <!--U轴夹爪力度 单位脉冲-->
-    <param name="clip_pulse" value="200" />
+  <param name="usart_port" value="/dev/ttyUSB0" />
+  <param name="mqtt_host" value="192.168.79.198" />
+  <param name="mqtt_port" value="50002" />
+<!-- U轴夹爪抓取力度 单位/脉冲-->
+  <param name="clip_pulse" value="200" />
   </node>
 
 </launch>
