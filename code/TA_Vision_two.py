@@ -114,7 +114,8 @@ class TA_Vision():
         self.ta_current_z = data.data[2]
 
     def get_ar_pose(self, msg):
-        self.ar_pose_array.fill(0)
+        self.ar_pose_array.fill(0) 
+        print(len(msg.markers))
         for i in range(len(msg.markers)):
             self.ar_pose_array[msg.markers[i].id][0] = round(msg.markers[i].pose.pose.position.x*1000, 2)
             self.ar_pose_array[msg.markers[i].id][1] = round(msg.markers[i].pose.pose.position.y*1000, 2)
@@ -147,8 +148,8 @@ class TA_Vision():
         if self.TA_Vision_Mqtt.TD_Vision_ID == 2 and self.ar_pose_array[1][2] != 0.0:
             self.TA_Vision_Mqtt.TD_Vision_ID = 0
             self.ta_vision_req_msg["action"] = self.TA_Vision_Mqtt.TD_Vision_Type
-            target_pose = [self.ta_current_x - self.ar_pose_array[1][0] + self.x1_dis, self.ta_current_y + self.y1_dis + self.ar_pose_array[1][1], -(self.ta_current_z - self.ar_pose_array[1][2] + self.z1_dis)]
-            target_pose1 = [self.ta_current_x - self.ar_pose_array[1][0] + self.x2_dis, self.ta_current_y + self.y2_dis + self.ar_pose_array[1][1], -(self.ta_current_z - self.ar_pose_array[1][2] + self.z2_dis)]
+            target_pose = [(self.ta_current_x + self.ar_pose_array[1][0] + self.x1_dis), (self.ta_current_y + self.y1_dis - self.ar_pose_array[1][1]), -(self.ta_current_z - self.ar_pose_array[1][2] + self.z1_dis)]
+            target_pose1 = [(self.ta_current_x + self.ar_pose_array[1][0] + self.x2_dis), (self.ta_current_y + self.y2_dis - self.ar_pose_array[1][1]), -(self.ta_current_z - self.ar_pose_array[1][2] + self.z2_dis)]
 
             self.ta_vision_req_msg["target_pose"] = target_pose #[self.ar_pose_array[1][0], self.ar_pose_array[1][1], self.ar_pose_array[1][2]]
             self.ta_vision_req_msg["target_pose1"] = target_pose1
@@ -165,8 +166,8 @@ class TA_Vision():
         if self.TA_Vision_Mqtt.TD_Vision_ID == 3 and self.ar_pose_array[2][2] != 0.0:
             self.TA_Vision_Mqtt.TD_Vision_ID = 0
             self.ta_vision_req_msg["action"] = self.TA_Vision_Mqtt.TD_Vision_Type
-            target_pose = [self.ta_current_x - self.ar_pose_array[2][0] + self.x1_dis, self.ta_current_y + self.y1_dis + self.ar_pose_array[2][1], -(self.ta_current_z - self.ar_pose_array[2][2] + self.z1_dis)]
-            target_pose1 = [self.ta_current_x - self.ar_pose_array[2][0] + self.x2_dis, self.ta_current_y + self.y2_dis + self.ar_pose_array[2][1], -(self.ta_current_z - self.ar_pose_array[2][2] + self.z2_dis)]
+            target_pose = [(self.ta_current_x + self.ar_pose_array[2][0] + self.x1_dis), (self.ta_current_y + self.y1_dis - self.ar_pose_array[2][1]), -(self.ta_current_z - self.ar_pose_array[2][2] + self.z1_dis)]
+            target_pose1 = [(self.ta_current_x + self.ar_pose_array[2][0] + self.x2_dis), (self.ta_current_y + self.y2_dis - self.ar_pose_array[2][1]), -(self.ta_current_z - self.ar_pose_array[2][2] + self.z2_dis)]
 
             self.ta_vision_req_msg["target_pose"] = target_pose #[self.ar_pose_array[2][0], self.ar_pose_array[2][1], self.ar_pose_array[2][2]]
             self.ta_vision_req_msg["target_pose1"] = target_pose1
@@ -180,8 +181,8 @@ class TA_Vision():
                 self.ta_target_pose1.publish(target_pose_data1)
         
         if self.vision_mode == 1 and self.ar_pose_array[6][2] != 0.0 and self.push_state == 1:
-            target_pose = [self.ta_current_x - self.ar_pose_array[6][0] + self.x1_dis, self.ta_current_y + self.y1_dis + self.ar_pose_array[6][1], self.ta_current_z - self.ar_pose_array[6][2] + z1_dis]
-            target_pose1 = [self.ta_current_x - self.ar_pose_array[6][0] + self.x2_dis, self.ta_current_y + self.y2_dis + self.ar_pose_array[6][1], self.ta_current_z - self.ar_pose_array[6][2] + z2_dis]
+            target_pose = [self.ta_current_x + self.ar_pose_array[6][0] + self.x1_dis, self.ta_current_y + self.y1_dis - self.ar_pose_array[6][1], self.ta_current_z - self.ar_pose_array[6][2] + z1_dis]
+            target_pose1 = [self.ta_current_x + self.ar_pose_array[6][0] + self.x2_dis, self.ta_current_y + self.y2_dis - self.ar_pose_array[6][1], self.ta_current_z - self.ar_pose_array[6][2] + z2_dis]
 
             self.ta_vision_req_msg["action"] = self.TA_Vision_Mqtt.TD_Vision_Type
             self.ta_vision_req_msg["target_pose"] = target_pose#[self.ar_pose_array[0][0], self.ar_pose_array[0][1], self.ar_pose_array[0][2]]

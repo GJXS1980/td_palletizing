@@ -9,44 +9,44 @@
 
     <!--  socket图传  -->
     <node pkg="td_palletizing" type="client_ros.py" name="IMG_Node">
-        <param name="host_ip" value="192.168.79.198" />
+        <param name="host_ip" value="192.168.43.124" />
         <param name="host_port" value="9999" />
     </node>
     
     <!--  塔吊抓取程序  -->
     <node pkg="td_palletizing" type="TA_Mission_two.py" name="Mission_Node">
-        <param name="host_ip" value="192.168.79.198" />
+        <param name="host_ip" value="192.168.43.124" />
         <param name="host_port" value="50002" />
 
-        <!--视�?�识�?模式, 1代表AGV上有�?(识别放置,默�??6号码),0表示无码(盲放)-->
+        <!--视觉识别模式, 1代表AGV上有码(识别放置,默认为6号码),0表示无码(盲放)-->
         <param name="vision_mode" value="0" />
 
-	    <!--抓取集�?��??1识别�?,单位mm-->
-	    <param name="grasp_x1" value="18.0"/>
-	    <param name="grasp_y1" value="0.0"/>
+	    <!--抓取集装箱1识别位置,单位mm-->
+	    <param name="grasp_x1" value="-19.74"/>
+	    <param name="grasp_y1" value="1.36"/>
 	    <param name="grasp_z1" value="0.0"/>
 
-	    <!--侧边放置集�?��??1位置�?,单位mm-->
-	    <param name="push_x1" value="206"/>
-	    <param name="push_y1" value="378"/>
-	    <param name="push_z1" value="210.0"/>
+	    <!--侧边放置集装箱1位置,单位mm-->
+	    <param name="push_x1" value="180"/>
+	    <param name="push_y1" value="394"/>
+	    <param name="push_z1" value="239.0"/>
 	
-	    <!--货车默�?�集装�??1放置�?-->
+	    <!--货车默认集装1放置位置-->
 	    <param name="real_push_x1" value="15.0"/>
 	    <param name="real_push_y1" value="-45.0"/>
 	    <param name="real_push_z1" value="380.0"/>
 
-	    <!--抓取集�?��??2识别�?,单位mm-->
-	    <param name="grasp_x2" value="35.0"/>
-	    <param name="grasp_y2" value="0.0"/>
+	    <!--抓取集装箱2识别位置,单位mm-->
+	    <param name="grasp_x2" value="45.04"/>
+	    <param name="grasp_y2" value="163.35"/>
 	    <param name="grasp_z2" value="0.0"/>
 
-	    <!--侧边放置集�?��??2位置�?,单位mm-->
+	    <!--侧边放置集装箱2位置,单位mm-->
 	    <param name="push_x2" value="-94"/>
 	    <param name="push_y2" value="378.0"/>
-	    <param name="push_z2" value="210.0"/>
+	    <param name="push_z2" value="239.0"/>
 	
-	    <!--货车默�?�集装�??2放置�?-->
+	    <!--货车默认集装箱2放置位置-->
 	    <param name="real_push_x2" value="15.0"/>
 	    <param name="real_push_y2" value="-45.0"/>
 	    <param name="real_push_z2" value="380.0"/>
@@ -55,16 +55,17 @@
     
     <!-- 塔吊识别程序 -->
     <node pkg="td_palletizing" type="TA_Vision_two.py" name="Vision_Node">
-        <param name="host_ip" value="192.168.79.198" />
+        <param name="host_ip" value="192.168.43.124" />
         <param name="host_port" value="50002" />
-        <!--视�?�识�?模式, 1代表AGV上有�?(识别放置,默�??6号码),0表示无码(盲放)-->
+        <!--视觉识别模式, 1代表AGV上有码(识别放置,默认6号码),0表示无码(盲放)-->
         <param name="vision_mode" value="0" />
 
-	    <!--视�?�补�?,单位mm-->
+	    <!--集装箱1补偿,单位mm-->
         <param name="x1_dis" value="0" />
         <param name="y1_dis" value="0" />
         <param name="z1_dis" value="0" />
 
+        <!--集装箱2补偿,单位mm-->
         <param name="x2_dis" value="0" />
         <param name="y2_dis" value="0" />
         <param name="z2_dis" value="0" />
