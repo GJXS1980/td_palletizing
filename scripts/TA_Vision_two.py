@@ -115,16 +115,17 @@ class TA_Vision():
 
     def get_ar_pose(self, msg):
         self.ar_pose_array.fill(0) 
-        print(len(msg.markers))
-        for i in range(len(msg.markers)):
-            self.ar_pose_array[msg.markers[i].id][0] = round(msg.markers[i].pose.pose.position.x*1000, 2)
-            self.ar_pose_array[msg.markers[i].id][1] = round(msg.markers[i].pose.pose.position.y*1000, 2)
-            self.ar_pose_array[msg.markers[i].id][2] = round(msg.markers[i].pose.pose.position.z*1000, 2)
+        # print(len(msg.markers))
+        if len(msg.markers) < 9:
+            for i in range(len(msg.markers)):
+                self.ar_pose_array[msg.markers[i].id][0] = round(msg.markers[i].pose.pose.position.x*1000, 2)
+                self.ar_pose_array[msg.markers[i].id][1] = round(msg.markers[i].pose.pose.position.y*1000, 2)
+                self.ar_pose_array[msg.markers[i].id][2] = round(msg.markers[i].pose.pose.position.z*1000, 2)
 
-            self.ar_pose_array[msg.markers[i].id][3] = msg.markers[i].pose.pose.orientation.w
-            self.ar_pose_array[msg.markers[i].id][4] = msg.markers[i].pose.pose.orientation.x
-            self.ar_pose_array[msg.markers[i].id][5] = msg.markers[i].pose.pose.orientation.y
-            self.ar_pose_array[msg.markers[i].id][6] = msg.markers[i].pose.pose.orientation.z
+                self.ar_pose_array[msg.markers[i].id][3] = msg.markers[i].pose.pose.orientation.w
+                self.ar_pose_array[msg.markers[i].id][4] = msg.markers[i].pose.pose.orientation.x
+                self.ar_pose_array[msg.markers[i].id][5] = msg.markers[i].pose.pose.orientation.y
+                self.ar_pose_array[msg.markers[i].id][6] = msg.markers[i].pose.pose.orientation.z
 
         if self.TA_Vision_Mqtt.TD_Vision_ID == 1 and self.ar_pose_array[7][2] != 0.0:
             self.TA_Vision_Mqtt.TD_Vision_ID = 0
